@@ -18,6 +18,43 @@
     --sans: 'Jost', sans-serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
+ body.light {
+  --black: #f0ede8; --white: #000;
+  --g950: #e8e4de; --g900: #ddd9d2; --g800: #c8c4bc; --g700: #b0aca4;
+  --g600: #908c84; --g500: #706c64; --g400: #504c44; --g300: #302c24; --g200: #1a1814;
+}
+body.light { background: var(--black); color: #000; }
+body.light nav { background: linear-gradient(to bottom, rgba(240,237,232,.95) 0%, transparent 100%); }
+body.light nav.scrolled { background: rgba(240,237,232,.97); }
+body.light .nav-logo,
+body.light .nav-links a { color: #000; }
+body.light .nav-links a:hover { color: #555; }
+body.light .hero-overlay { background: linear-gradient(to bottom, rgba(240,237,232,.1) 0%, rgba(240,237,232,.3) 50%, rgba(240,237,232,.75) 100%); }
+body.light .hero-title,
+body.light .hero-sub,
+body.light .hero-tag { color: #000; }
+body.light .hero-sub,
+body.light .hero-tag { color: #555; }
+body.light .btn-p { color: #fff; background: #000; border-color: #000; }
+body.light .btn-p:hover { background: #333; }
+body.light .btn-s { color: #000; border-color: rgba(0,0,0,.35); }
+body.light .btn-s:hover { border-color: #000; }
+body.light #contact { background: #000; color: #fff; }
+body.light #contact h2 { color: #fff; }
+body.light #contact > p,
+body.light .cta-label,
+body.light .avail { color: #aaa; }
+body.light .cta-bg { color: rgba(255,255,255,.04); }
+body.light .btn-dark { background: #fff; color: #000; border-color: #fff; }
+body.light footer { background: var(--g950); border-color: var(--g800); }
+body.light .foot-logo { color: #000; }
+body.light .wa { background: #fff; border-color: var(--g800); }
+body.light .wa svg { fill: #000; }
+body.light .wa span { color: #000; }
+body.light .mob-menu { background: rgba(240,237,232,.98); }
+body.light .mob-link { color: #000; }
+body.light .mob-close { color: #000; }
+body.light .nav-burger span { background: #000; }
   html { scroll-behavior: smooth; }
   body { background: var(--black); color: #fff; font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; cursor: none; }
 
@@ -366,6 +403,19 @@
   @media (max-width:700px) {
     .nav-burger { display:flex; }
   }
+
+ .theme-toggle {
+  position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 300;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: #000; border: 1px solid var(--g700);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .4s;
+  animation: sir .8s var(--ease) 2.5s both;
+}
+.theme-toggle:hover { border-color: var(--g500); }
+.theme-toggle svg { width: 16px; height: 16px; fill: #fff; transition: fill .3s; }
+body.light .theme-toggle { background: #fff; border-color: var(--g800); }
+body.light .theme-toggle svg { fill: #000; }
 </style>
 </head>
 <body>
@@ -387,6 +437,10 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+ <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+  <svg viewBox="0 0 24 24" id="theme-icon"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+</button>
 
 <!-- Mobile menu overlay -->
 <div class="mob-menu" id="mob-menu">
@@ -1024,6 +1078,17 @@ mobLinks.forEach(l => l.addEventListener('click', () => mobMenu.classList.remove
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 buildGrid();
+ // ─── Theme toggle ─────────────────────────────────────────────────────────────
+const themeBtn = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const sunPath = 'M12 2a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1zm0 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm7.07-12.07a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0zM21 11h1a1 1 0 0 1 0 2h-1a1 1 0 0 1 0-2zM17.66 17.66l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 1 1 1.41-1.41zM12 20a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0v-1a1 1 0 0 1 1-1zM6.34 17.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.71-.71zM3 11h1a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2zM4.93 4.93a1 1 0 0 1 1.41 0l.71.71A1 1 0 0 1 5.64 7.05l-.71-.71a1 1 0 0 1 0-1.41z';
+const moonPath = 'M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z';
+
+themeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light');
+  const isLight = document.body.classList.contains('light');
+  themeIcon.querySelector('path').setAttribute('d', isLight ? sunPath : moonPath);
+});
 </script>
 </body>
 </html>
